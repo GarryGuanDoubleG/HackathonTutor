@@ -134,20 +134,38 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
 })
 
 .controller('MainPage', function ($scope,$http, $state){
-    navigator.geolocation.getCurrentPosition(function(position) {
-    })
-    console.log("lat: " + lat + " long: " + long);
-    $http.get("http://45.79.138.124/GetTutorList.php?Latitude=" + lat + "&Longitude=" + long).success( function(data){
+    var currLat;
+    var currLong;
+    
+    $scope.getPos = function (){navigator.geolocation.getCurrentPosition(function(position) {
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        $http.get("http://45.79.138.124/GetTutorList.php?Latitude=" + lat + "&Longitude=" + long).success(  function(data){
      $scope.users = data;
+     console.log(data);
      angular.forEach($scope.users, function(value,key){
-         $scope.users[key].FBPicUrl = "https://graph.facebook.com/"+1221338047892755+"/picture?fields=picture.width(720).height(720)";
-         console.log($scope.users.FBPicUrl);
+//         $scope.users[key].FBPicUrl = "https://graph.facebook.com/"+1221338047892755+"/picture?fields=picture.width(720).height(720)";
+        // console.log($scope.users.FBPicUrl);
      });
+        console.log("******Lat is " + lat + " &&&&&&&&&& long is " + long);
+        })
+   })
+                               };
+ 
+    
+    $scope.getPos();
+    
+    console.log("lat: " + lat + " long: " + long);
+//    $http.get("http://45.79.138.124/GetTutorList.php?Latitude=" + lat + "&Longitude=" + long).success( function(data){
+//     $scope.users = data;
+//     angular.forEach($scope.users, function(value,key){
+//         $scope.users[key].FBPicUrl = "https://graph.facebook.com/"+1221338047892755+"/picture?fields=picture.width(720).height(720)";
+//         console.log($scope.users.FBPicUrl);
+//     });
         
      console.log('Main Page Get Request');
      console.log($scope.users);
      console.log(lat + " " + long);
-    });
     
 //    $scope.users = [
 //        {UserId:'', name: 'Jimmy Patel', classes: 'Math112, Math111, CS113', img_url: ''},
@@ -171,7 +189,9 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
 })
 
 .controller('BroadCast', function ($scope, $state){
-    
+    $scope.stopBroadCast = function (){
+        $state.go('app.MainPage');
+    }
 });
 
             
