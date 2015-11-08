@@ -136,7 +136,9 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
 .controller('MainPage', function ($scope,$http, $state){
     var currLat;
     var currLong;
-    
+     $scope.register = function(){
+      $state.go('app.tutorReg');
+    }
     $scope.getPos = function (){navigator.geolocation.getCurrentPosition(function(position) {
         lat = position.coords.latitude;
         long = position.coords.longitude;
@@ -174,9 +176,7 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
 //        {name: 'Geoff Ching', classes: 'Math112, Phys112, CS288', img_url: ''},
 //        ];
 //    
-    $scope.register = function(){
-      $state.go('app.tutorReg');
-    }
+    
 })
     })})
 
