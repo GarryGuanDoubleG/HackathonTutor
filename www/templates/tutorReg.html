@@ -1,0 +1,38 @@
+<ion-view title="">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+      
+    <Form>
+        <label class = "item item-input">
+            <span class = "input-label">Age:</span>
+            <input type = "number" ng-model = "formData.Age" required>
+        </label>
+        <label class = "item item-input">
+            <span class = "input-label form-control">About Me:</span>
+            <input class = "form-control" type = "Text" ng-model = "formData.Bio" required>
+        </label>
+        <label class = "item item-input">
+            <span class = "input-label">Hours:</span>
+            <input type = "number" ng-model = "formData.EndTime" required>
+        </label>
+        <label class = "item item-input">
+            <span class = "input-label">Subject 1:</span>
+            <input type = "text" ng-model = "formData.Subject1" required>
+        </label>
+        <label class = "item item-input">
+            <span class = "input-label">Subject 2:</span>
+            <input type = "text" ng-model = "formData.Subject2">
+        </label>
+        <label class = "item item-input">
+            <span class = "input-label">Subject 3:</span>
+            <input type = "text" ng-model = "formData.Subject3">
+        </label>
+      </Form>
+      
+  </ion-content>
+  <div class = "bottombarSubmit">
+   <img src="../img/Submit.png" class = "submitBtn" ng-click = "broadcastGG()"/>
+ </div>
+</ion-view>
