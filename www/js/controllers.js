@@ -56,6 +56,12 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
 })
 
 .controller('MainPage', function ($scope){
-    $scope.users = ["hello world", "geoff", "heller", "jeff"];
+    $scope.users = [
+        {name: 'Jimmy Patel', classes: 'Math112, Math111, CS113', img_url: ''},
+        {name: 'Garry Guan', classes: 'CS114, Phys111, CS280', img_url: ''},
+        {name: 'Jeff Chang', classes: 'Math113, Math111, CS113', img_url: ''},
+        {name: 'Geoff Ching', classes: 'Math112, Phys112, CS288', img_url: ''},
+        ];
+    
 });
             
