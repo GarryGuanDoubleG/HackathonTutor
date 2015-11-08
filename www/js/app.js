@@ -31,19 +31,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
       controller: 'AppCtrl'
     })
 
-    .state('app.mainPage',{
-       url:'/main',
-//       templateUrl: "templates/main.html",
-//       controller: 'MainPage'
-       views: {
-        'menuContent' :{
-          templateUrl: "templates/main.html"
-          controller: 'MainPage'
-        }
-      }
-      
-   })
-
     .state('app.search', {
       url: "/search",
       views: {
@@ -61,6 +48,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
         }
       }
     })
+  
+    .state('app.MainPage',{
+       url:'/main',
+//       templateUrl: "templates/main.html",
+//       controller: 'MainPage'
+       views: {
+        'menuContent': {
+          templateUrl: "templates/main.html",
+          controller: 'MainPage'
+        }
+      }     
+   })
 
     .state('app.single', {
       url: "/playlists/:playlistId",
@@ -71,13 +70,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
         }
       }
     });
+    
    $stateProvider.state('login',{
       url: '/login',
       templateUrl: "templates/login.html",
       controller: 'FBCtrl'
   }) 
+//  $stateProvider.state('main',{
+//      url: '/main',
+//      templateUrl: "templates/main.html",
+//      controller: 'MainPage'
+//  })
    
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/main');
+  $urlRouterProvider.otherwise('app/main');
 });
 

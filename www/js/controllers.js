@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
 
 .controller('AppCtrl', function ($scope, $ionicModal, $timeout, ngFB) {
-  // Form data for the login modal
+//   Form data for the login modal
 //  $scope.loginData = {};
 //
 //  // Create the login modal that we will use later
@@ -32,24 +32,12 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
 //    }, 1000);
 //  };
     
-  $scope.fbLogin = function () {
-    ngFB.login({scope: 'email'}).then(
-        function (response) {
-            if (response.status === 'connected') {
-                console.log('Facebook login succeeded');
-                $scope.closeLogin();
-            } else {
-                alert('Facebook login failed');
-            }
-        });
-  };
-    
 })
 
 .controller('FBCtrl', function ($scope, ngFB,$state){
     ngFB.getLoginStatus().then(function(response){
         if(response.status == "connected"){
-            $state.go('app.search');
+            $state.go('app.MainPage');
         }
     });  
     
@@ -67,7 +55,7 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
     
 })
 
-.controller('MainPage', function($scope){
-    $scope.users = ['swagJeff', 'Geoff', 'geoff1', 'geoff2'];
-    
+.controller('MainPage', function ($scope){
+    $scope.users = ["hello world", "geoff", "heller", "jeff"];
 });
+            

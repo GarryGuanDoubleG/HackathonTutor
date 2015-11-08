@@ -12,3 +12,9 @@
     position: absolute;
     top: 420px;
 }
+
+.bar-tutorit{
+    background-image: url(../img/Header.jpg) !important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
