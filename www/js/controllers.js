@@ -1,4 +1,5 @@
-angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
+angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
+
 .controller('AppCtrl', function ($scope, $ionicModal, $timeout, ngFB) {
   // Form data for the login modal
 //  $scope.loginData = {};
@@ -45,13 +46,19 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
     
 })
 
-.controller('FBCtrl', function ($scope, ngFB){
+.controller('FBCtrl', function ($scope, ngFB,$state){
+    ngFB.getLoginStatus().then(function(response){
+        if(response.status == "connected"){
+            $state.go('app.search');
+        }
+    });  
     
     $scope.fbLogin = function () {
     ngFB.login({scope: 'email'}).then(
         function (response) {
             if (response.status === 'connected') {
                 console.log('Facebook login succeeded');
+                $state.go('app.playlists');
             } else {
                 alert('Facebook login failed');
             }
@@ -59,16 +66,8 @@ angular.module('starter.controllers', ['starter.services', 'ngOpenFB'])
   };
     
 })
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('MainPage', function($scope){
+    $scope.users = ['swagJeff', 'Geoff', 'geoff1', 'geoff2'];
+    
 });
