@@ -1,1 +1,14 @@
 /* Empty. Add your own CSS if you like */
+
+.loginClass{
+    background-image: url(../img/Landing_Page.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+}
+
+.button-fb{
+
+    position: absolute;
+    top: 420px;
+}
