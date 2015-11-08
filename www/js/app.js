@@ -54,6 +54,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
         }
   })
     
+  .state('app.about',{
+      url: "/about",
+      views:{
+          'menuContent':{
+              templateUrl: "templates/about.html"
+          }
+      }
+  })
   .state('app.broadcast',{
          url: '/broadcast',
         views: {
