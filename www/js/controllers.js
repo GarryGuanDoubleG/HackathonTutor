@@ -1,52 +1,130 @@
+var lat;
+var long;
+
 angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
 
 .controller('AppCtrl', function ($scope, $ionicModal, $timeout, ngFB) {
-//   Form data for the login modal
-//  $scope.loginData = {};
-//
-//  // Create the login modal that we will use later
-//  $ionicModal.fromTemplateUrl('templates/login.html', {
-//    scope: $scope
-//  }).then(function(modal) {
-//    $scope.modal = modal;
-//  });
-//
-//  // Triggered in the login modal to close it
-//  $scope.closeLogin = function() {
-//    $scope.modal.hide();
-//  };
-//
-//  // Open the login modal
-//  $scope.login = function() {
-//    $scope.modal.show();
-//  };
-//
-//  // Perform the login action when the user submits the login form
-//  $scope.doLogin = function() {
-//    console.log('Doing login', $scope.loginData);
-//
-//    // Simulate a login delay. Remove this and replace with your login
-//    // code if using a login system
-//    $timeout(function() {
-//      $scope.closeLogin();
-//    }, 1000);
-//  };
     
 })
 
-.controller('FBCtrl', function ($scope, ngFB,$state){
+.controller('FBCtrl', function ($scope, ngFB,$state,$http){
+    
+    $scope.calculateAge = function calculateAge(birthday) { // birthday is a date
+            var bday = new Date(birthday);
+            console.log(bday);
+            var ageDifMs = Date.now() - bday ;
+            var ageDate = new Date(ageDifMs); // miliseconds from epoch
+            console.log(Math.abs(ageDate.getUTCFullYear() - 1970));
+            return Math.abs(ageDate.getUTCFullYear() - 1970);
+        };
+    
+    $scope.getPos = function getPos(){
+        navigator.geolocation.getCurrentPosition(function(position) {
+        $scope.positions = [{lat: position.coords.latitude,lng: position.coords.longitude}];
+        console.log($scope.positions);
+        console.log($scope.positions[0].lng);
+        if($scope.positions[0].lat != undefined){
+            lat = $scope.positions[0].lat;
+        }
+        if($scope.positions[0].lng != undefined){
+            long = $scope.positions[0].lng;
+        }
+        console.log(" lat" + lat + " long" + long);
+    })
+    }
+    
     ngFB.getLoginStatus().then(function(response){
         if(response.status == "connected"){
-            $state.go('app.MainPage');
+            console.log("connected to facebook");
+            $scope.getPos();
+            if (response.status === 'connected') {
+                console.log('Facebook login succeeded');
+                ngFB.api({
+                    path: '/me',
+                    params: {fields: 'id,first_name, last_name, birthday'}
+                }).then(
+                    
+                    function(user){
+                        data = {
+                            'UserId': user.id,
+                            'FirstName': user.first_name,
+                            'LastName': user.last_name,
+//                            'Age': $scope.calculateAge(user.birthday),
+                            'Longitude': long,
+                            'Latitude': lat
+                        }
+                        console.log(data);
+                        var config = {
+                            headers : {
+                                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;',
+                            }
+                        };
+                        console.log(config);
+                        console.log(data.UserId);
+                        $http.get('http://45.79.138.124/UserRegister.php?UserId='+data.UserId + '&FirstName=' + data.FirstName + '&LastName=' + data.LastName + '&Longitude=' + data.Longitude + '&Latitude=' + data.Latitude)
+                        .success(function(returndata, status, headers, config)
+                        {
+                            console.log(status + ' - ' + returndata);
+                        })
+                        .error(function (data, status, headers, config)
+                        {
+                            console.log(status + data + 'error');
+                        });
+                    },
+                    
+                    function (error){
+                        alert ('Facebook error: ' + error.error_description);
+                });
+            
+//            $state.go('app.MainPage');
+        }
         }
     });  
     
     $scope.fbLogin = function () {
     ngFB.login({scope: 'email'}).then(
-        function (response) {
+            
+        function (response) {         
+            $scope.getPos();
+
             if (response.status === 'connected') {
                 console.log('Facebook login succeeded');
-                $state.go('app.playlists');
+                ngFB.api({
+                    path: '/me',
+                    params: {fields: 'id,first_name,last_name,birthday'}
+                }).then(
+                    function(user){
+                        console.log($scope.positions);
+                        data = {
+                            'UserId': user.id,
+                            'FirstName': user.first_name,
+                            'LastName': user.last_name,
+                            'Longitude': long,
+                            'Latitude': lat
+                        }
+                        var config = {
+                            headers : {
+                                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;',
+                            }
+                        };
+                        
+                        console.log(data.UserId);
+                        $http.get('http://45.79.138.124/UserRegister.php?UserId='+data.UserId + '&FirstName=' + data.FirstName + '&LastName=' + data.LastName + '&Longitude=' + data.Longitude + '&Latitude=' + data.Latitude)
+                        .success(function(data, status, headers, config)
+                        {
+                            console.log(status + ' - ' + data);
+                        })
+                        .error(function (data, status, headers, config)
+                        {
+                            console.log('error');
+                        });
+                    },
+                    
+                    function (error){
+                        alert ('Facebook error: ' + error.error_description);
+                });
+                
+                $state.go('app.MainPage');
             } else {
                 alert('Facebook login failed');
             }
@@ -55,13 +133,45 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
     
 })
 
-.controller('MainPage', function ($scope){
-    $scope.users = [
-        {name: 'Jimmy Patel', classes: 'Math112, Math111, CS113', img_url: ''},
-        {name: 'Garry Guan', classes: 'CS114, Phys111, CS280', img_url: ''},
-        {name: 'Jeff Chang', classes: 'Math113, Math111, CS113', img_url: ''},
-        {name: 'Geoff Ching', classes: 'Math112, Phys112, CS288', img_url: ''},
-        ];
+.controller('MainPage', function ($scope,$http, $state){
+    navigator.geolocation.getCurrentPosition(function(position) {
+    })
+    console.log("lat: " + lat + " long: " + long);
+    $http.get("http://45.79.138.124/GetTutorList.php?Latitude=" + lat + "&Longitude=" + long).success( function(data){
+     $scope.users = data;
+     angular.forEach($scope.users, function(value,key){
+         $scope.users[key].FBPicUrl = "https://graph.facebook.com/"+1221338047892755+"/picture?fields=picture.width(720).height(720)";
+         console.log($scope.users.FBPicUrl);
+     });
+        
+     console.log('Main Page Get Request');
+     console.log($scope.users);
+     console.log(lat + " " + long);
+    });
+    
+//    $scope.users = [
+//        {UserId:'', name: 'Jimmy Patel', classes: 'Math112, Math111, CS113', img_url: ''},
+//        {name: 'Garry Guan', classes: 'CS114, Phys111, CS280', img_url: ''},
+//        {name: 'Jeff Chang', classes: 'Math113, Math111, CS113', img_url: ''},
+//        {name: 'Geoff Ching', classes: 'Math112, Phys112, CS288', img_url: ''},
+//        ];
+//    
+    $scope.register = function(){
+      $state.go('app.tutorReg');
+    }
+})
+
+.controller('TutorForm', function ($scope,$state){
+   $scope.formData = { Age:'', Bio: '', EndTime: '', Subject1: '', Subject2: '', Subject3: '', isTutor: 1 };
+    $scope.broadcastGG = function ()
+    {
+        $state.go('app.broadcast');
+    }
+    
+})
+
+.controller('BroadCast', function ($scope, $state){
     
 });
+
             

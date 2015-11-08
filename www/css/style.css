@@ -14,16 +14,60 @@
 }
 
 .bar-tutorit{
-    background-image: url(../img/Header.jpg) !important;
+    background-image: url(/img/Header.jpg) !important;
     background-repeat: no-repeat;
     background-size: 100% 100%;
+        
 }
 
 .users{
+    vertical-align: middle;
     margin: 10px;
-    width: 75px;
-    height: 75px;
+    width: 160px;
+    height: 160px;
     border: 1px solid red;
     display: inline-block;
     float: left;
 }
+
+.usersImage{
+    width: 60px;
+    height: 60px;
+    
+}
+.bottombarGG{
+    position: fixed;
+    left: 20%;
+    bottom: 15%;
+    width: 100%;
+    height: 44px;   
+}
+.tutorBtn{
+    width: 225px;
+    height: 44px;   
+    position: absolute !important;
+    top: 70% !important;
+}
+.bottombarSubmit{
+    position: fixed;
+    left: 20%;
+    bottom: 25%;
+    width: 100%;
+    height: 44px;   
+}
+.broadcast{
+    vertical-align: center !important;
+    position: relative;
+    top: 61px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto !important;
+    
+}
+
+.StopBroadCast{
+    position: relative;
+    top: 70px;
+    left: 70px;
+}
+

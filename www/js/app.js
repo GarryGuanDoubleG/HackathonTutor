@@ -22,6 +22,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+
+  $stateProvider.state('login',{
+      url: '/login',
+      templateUrl: "templates/login.html",
+      controller: 'FBCtrl'
+  })     
+  
+  $stateProvider.state('tutorReg', {
+      url: '/tutorReg',
+      templateUrl: "templates/tutorReg.html",
+      controller: 'TutorForm'
+  })
+  
   $stateProvider
 
     .state('app', {
@@ -30,7 +43,27 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
       templateUrl: "templates/menu.html",
       controller: 'AppCtrl'
     })
-
+  
+    .state('app.tutorReg',{
+         url: '/tutorReg',
+        views: {
+            'menuContent' :{
+              templateUrl: "templates/tutorReg.html",
+              controller: 'TutorForm'
+            }
+        }
+  })
+    
+  .state('app.broadcast',{
+         url: '/broadcast',
+        views: {
+            'menuContent' :{
+              templateUrl: "templates/broadcast.html",
+              controller: 'BroadCast'
+            }
+        }
+  })
+  
     .state('app.search', {
       url: "/search",
       views: {
@@ -71,11 +104,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
       }
     });
     
-   $stateProvider.state('login',{
-      url: '/login',
-      templateUrl: "templates/login.html",
-      controller: 'FBCtrl'
-  }) 
 //  $stateProvider.state('main',{
 //      url: '/main',
 //      templateUrl: "templates/main.html",
@@ -83,6 +111,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
 //  })
    
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('app/main');
+  $urlRouterProvider.otherwise('login');
 });
 
