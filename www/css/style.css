@@ -40,9 +40,14 @@
     background-size: 100% 100%;
     text-align: center;
 }
+.supportimage{
+    background-image: url(../img/support.jpg) !important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+}
 .SidebarAbout
-{
-    text-align: justify; 
+{ 
      background-image: url(../img/About.png) !important;
     width: 30px;
     height: 30px;
@@ -51,7 +56,7 @@
     
 }
 .SidebarSettings{
-    background-image: url(../img/Settings.png) !important;
+    background-image: url(../img/Settings.png) !important; 
     width: 30px;
     height: 30px;
     margin: 5px;
