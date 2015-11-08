@@ -144,8 +144,8 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
      $scope.users = data;
      console.log(data);
      angular.forEach($scope.users, function(value,key){
-//         $scope.users[key].FBPicUrl = "https://graph.facebook.com/"+1221338047892755+"/picture?fields=picture.width(720).height(720)";
-        // console.log($scope.users.FBPicUrl);
+         $scope.users[key].FBPicUrl = "https://graph.facebook.com/"+1221338047892755+"/picture?fields=picture.width(720).height(720)";
+         console.log($scope.users.FBPicUrl);
      });
         console.log("******Lat is " + lat + " &&&&&&&&&& long is " + long);
         })
@@ -156,11 +156,11 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
     $scope.getPos();
     
     console.log("lat: " + lat + " long: " + long);
-//    $http.get("http://45.79.138.124/GetTutorList.php?Latitude=" + lat + "&Longitude=" + long).success( function(data){
-//     $scope.users = data;
-//     angular.forEach($scope.users, function(value,key){
-//         $scope.users[key].FBPicUrl = "https://graph.facebook.com/"+1221338047892755+"/picture?fields=picture.width(720).height(720)";
-//         console.log($scope.users.FBPicUrl);
+    $http.get("http://45.79.138.124/GetTutorList.php?Latitude=" + lat + "&Longitude=" + long).success( function(data){
+     $scope.users = data;
+     angular.forEach($scope.users, function(value,key){
+         $scope.users[key].FBPicUrl = "https://graph.facebook.com/"+1221338047892755+"/picture?fields=picture.width(720).height(720)";
+         console.log($scope.users.FBPicUrl);
 //     });
         
      console.log('Main Page Get Request');
@@ -178,6 +178,7 @@ angular.module('starter.controllers', ['ionic','starter.services', 'ngOpenFB'])
       $state.go('app.tutorReg');
     }
 })
+    })})
 
 .controller('TutorForm', function ($scope,$state){
    $scope.formData = { Age:'', Bio: '', EndTime: '', Subject1: '', Subject2: '', Subject3: '', isTutor: 1 };
