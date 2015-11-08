@@ -27,3 +27,40 @@
     display: inline-block;
     float: left;
 }
+
+.aboutimage{
+    background-image: url(../img/Landing_Page%202.jpg) !important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+}
+.settingsimage{
+    background-image: url(../img/Settings.jpg) !important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+}
+.SidebarAbout
+{
+    text-align: justify; 
+     background-image: url(../img/About.png) !important;
+    width: 30px;
+    height: 30px;
+     margin: 5px;
+    background-size: 100% 100%;
+    
+}
+.SidebarSettings{
+    background-image: url(../img/Settings.png) !important;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    background-size: 100% 100%;
+}
+.SidebarSupport{
+     background-image: url(../img/Support.png) !important;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    background-size: 100% 100%;
+}

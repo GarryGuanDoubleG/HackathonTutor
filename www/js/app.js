@@ -31,6 +31,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngOpenFB'])
       controller: 'AppCtrl'
     })
 
+    .state('app.about',{
+      url: "/about",
+      views:{
+          'menuContent':{
+              templateUrl: "templates/about.html"
+          }
+      }
+  })
     .state('app.search', {
       url: "/search",
       views: {
